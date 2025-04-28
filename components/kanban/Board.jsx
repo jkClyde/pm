@@ -2,11 +2,10 @@
 import { useState } from "react";
 import Column from "./Column";
 import BurnBarrel from "./BurnBarrel";
-import { DEFAULT_CARDS } from "./data";
 import { ChevronDown } from "lucide-react";
 
-const Board = () => {
-  const [cards, setCards] = useState(DEFAULT_CARDS);
+const Board = ({ initialCards }) => {
+  const [cards, setCards] = useState(initialCards || []);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   
@@ -22,6 +21,10 @@ const Board = () => {
   const selectProject = (project) => {
     setSelectedProject(project);
     setIsDropdownOpen(false);
+    
+    // Here you could add logic to fetch cards for the selected project
+    // For example:
+    // fetchCardsForProject(project.id);
   };
 
   return (
@@ -41,7 +44,7 @@ const Board = () => {
           </button>
           
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-[#171717]  rounded-lg shadow-lg z-10 border border-[#171717]">
+            <div className="absolute right-0 mt-2 w-64 bg-[#171717] rounded-lg shadow-lg z-10 border border-[#171717]">
               <div className="py-1">
                 {projects.map(project => (
                   <div 
