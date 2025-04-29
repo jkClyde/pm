@@ -31,6 +31,9 @@ try {
         ref: 'Project',
         required: true,
       },
+      position: {
+        type: Number,
+      },
       createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

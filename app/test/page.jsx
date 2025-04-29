@@ -1,12 +1,22 @@
-import connectDB from "@/config/database"
-import Card from "@/models/Card"
+import connectDB from "@/config/database";
+import Card from "@/models/Card";
 
 const page = async () => {
   await connectDB();
-  const Cards = await Card.find({}).lean
-  return (
-    <div></div>
-  )
-}
+  const cards = await Card.find({}).lean(); // <- Add () to lean
 
-export default page
+  return (
+    <div>
+      {cards.map((card) => (
+        <div key={card._id}>
+          <h2>{card.title}</h2>
+          <p>{card.description}</p>
+          <p>Column: {card.column}</p>
+          <p>Due: {card.dueDate ? new Date(card.dueDate).toLocaleDateString() : 'No due date'}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default page;
